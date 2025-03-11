@@ -2,6 +2,7 @@ using ClassLib.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MVCDbInitializerSample2025.Data;
+using MVCDbInitializerSample2025.Models;
 
 namespace MVCDbInitializerSample2025
 {
@@ -15,9 +16,14 @@ namespace MVCDbInitializerSample2025
             // Application User subclassing IdentityUser in The MVC App uses the ApplicationDbContext<ApplicationUser> Pattern
             // this requires an additional migration
             // using add-migration -Context ApplicationDbContext "Create Application User"
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(connectionString));
+            var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+            builder.Services.AddDbContext<UserContext>(options =>
+            options.UseSqlServer(dbConnectionString));
+
+
+
+     
 
             // Note Clubs Context is visible via a Project Assembly Reference
             // The migrations manager in the PMC window picks up on these Program code entries in terms of Contexts
