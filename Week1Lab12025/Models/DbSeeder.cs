@@ -54,6 +54,7 @@
                         DOB = new DateTime(day: 1, month: 1, year: 1975)
                     }
                 });
+                _ctx.SaveChanges();
 
             }
         }
